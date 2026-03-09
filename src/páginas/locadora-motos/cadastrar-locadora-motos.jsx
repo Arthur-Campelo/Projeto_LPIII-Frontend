@@ -15,7 +15,7 @@ import {
     estilizarDropdown, estilizarFlex, estilizarInlineFlex, estilizarInputNumber, estilizarLabel
 } from "../../utilitários/estilos";
 
-export default function CadastrarProfessor() {
+export default function CadastrarLocadoraMotos() {
     const referênciaToast = useRef(null);
     const navegar = useNavigate();
     const { usuárioLogado, setUsuárioLogado } = useContext(ContextoUsuário);

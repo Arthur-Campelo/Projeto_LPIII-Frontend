@@ -13,7 +13,7 @@ import ContextoUsuário from "../../contextos/contexto-usuário";
 import ModalConfirmaçãoUsuário from "../../componentes/modais/modal-confirmação-usuário";
 import mostrarToast from "../../utilitários/mostrar-toast";
 import { serviçoVerificarCnpjExistente } from "../../serviços/serviços-usuário";//*checar/*/
-import { CNPJ_MÁSCARA } from "../../utilitários/máscaras";//*checar/*/
+import { CNPJ_MÁSCARA, limparMascara } from "../../utilitários/máscaras";//*checar/*/
 import {
     MostrarMensagemErro, checarListaVazia, validarCampoEmail, validarCamposObrigatórios,
     validarConfirmaçãoSenha, validarConfirmaçãoSenhaOpcional, validarRecuperaçãoAcessoOpcional
@@ -99,7 +99,7 @@ export default function CadastrarUsuário() {
         if (camposVálidos) {
             let response;
             try {
-                response = await serviçoVerificarCnpjExistente(dados.cnpj);
+                response = await serviçoVerificarCnpjExistente(limparMascara(dados.cnpj));
                 if (response) confirmarOperação("salvar");
             } catch (error) {
                 if (error.response.data.erro)
@@ -108,7 +108,7 @@ export default function CadastrarUsuário() {
         }
     }
     function confirmarOperação(operação) {
-        setConfirmaçãoUsuário({ ...dados, operação });
+        setConfirmaçãoUsuário({ ...dados, cnpj: limparMascara(dados.cnpj), operação });
         setMostrarModalConfirmação(true);
     };
     function ComandosConfirmação() {

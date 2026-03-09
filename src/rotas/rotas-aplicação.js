@@ -3,7 +3,7 @@ import RotasUsuárioLogado from "./rotas-usuário-logado";
 import LogarUsuário from "../páginas/usuário/logar-usuário";
 import CadastrarUsuário from "../páginas/usuário/cadastrar-usuário";
 import PáginaInicial from "../páginas/usuário/página-inicial";
-import CadastrarLocadoraMotos from "../páginas/professor/cadastrar-locadora-motos";
+import CadastrarLocadoraMotos from "../páginas/locadora-motos/cadastrar-locadora-motos";
 
 export default function RotasAplicação() {
     return (
