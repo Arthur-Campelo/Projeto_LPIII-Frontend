@@ -12,8 +12,8 @@ import { Toast } from "primereact/toast";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import ModalConfirmaçãoUsuário from "../../componentes/modais/modal-confirmação-usuário";
 import mostrarToast from "../../utilitários/mostrar-toast";
-import { serviçoVerificarCpfExistente } from "../../serviços/serviços-usuário";
-import { CPF_MÁSCARA } from "../../utilitários/máscaras";
+import { serviçoVerificarCnpjExistente } from "../../serviços/serviços-usuário";//*checar/*/
+import { CNPJ_MÁSCARA } from "../../utilitários/máscaras";//*checar/*/
 import {
     MostrarMensagemErro, checarListaVazia, validarCampoEmail, validarCamposObrigatórios,
     validarConfirmaçãoSenha, validarConfirmaçãoSenhaOpcional, validarRecuperaçãoAcessoOpcional
@@ -23,26 +23,29 @@ import {
     estilizarDivBotõesAção, estilizarDivCampo, estilizarDivider, estilizarDropdown, estilizarFlex,
     estilizarFooterDialog, estilizarInputMask, estilizarInputText, estilizarLabel, estilizarLink,
     estilizarPasswordInput, estilizarPasswordTextInputBorder, estilizarSubtítulo, opçõesCores
-} from "../../utilitários/estilos";
+} from "../../utilitários/estilos";/**checar tamanhos cnpj */
 
 export default function CadastrarUsuário() {
     const referênciaToast = useRef(null);
     const { usuárioLogado, mostrarModalConfirmação, setMostrarModalConfirmação, setConfirmaçãoUsuário } = useContext(ContextoUsuário);
     const [dados, setDados] = useState({
-        cpf: usuárioLogado?.cpf || "",
+        cnpj: usuárioLogado?.cnpj || "",
         nome: usuárioLogado?.nome || "", perfil: usuárioLogado?.perfil || "",
         email: usuárioLogado?.email || "", senha: "", confirmação: "",
         questão: usuárioLogado?.questão || "", resposta: "",
         cor_tema: usuárioLogado?.cor_tema || TEMA_PADRÃO
     });
     const [erros, setErros] = useState({});
-    const opçõesPerfis = [{ label: "Professor", value: "professor" },
-    { label: "Aluno", value: "aluno" }];
+
+    const opçõesPerfis = [{ label: "Locadora de Motos", value: "locadora_motos" },
+    { label: "Organizador de eventos", value: "organizador_eventos_motos" }];
+
     function alterarEstado(event) {
         const chave = event.target.name;
         const valor = event.target.value;
         setDados({ ...dados, [chave]: valor });
     };
+
     function validarCamposAdministrar() {
         const { email, senha, confirmação, questão, resposta } = dados;
         let errosCamposObrigatórios = validarCamposObrigatórios({ email });
@@ -58,12 +61,12 @@ export default function CadastrarUsuário() {
             && checarListaVazia(errosValidaçãoEmail) && checarListaVazia(errosRecuperaçãoAcessoOpcional);
     };
     function validarCamposCadastrar() {
-        const { perfil, cpf, nome, questão, resposta, senha, confirmação, email } = dados;
+        const { perfil, cnpj, nome, questão, resposta, senha, confirmação, email } = dados;
         console.log("CadastrarUsuário.validarCamposCadastrar:dados.nome -- " + dados.nome);
         console.log(JSON.parse(JSON.stringify(dados)));
         if (!usuárioLogado?.perfil) {
             let errosCamposObrigatórios = validarCamposObrigatórios
-                ({ perfil, cpf, nome, questão, resposta, senha, confirmação, email });
+                ({ perfil, cnpj, nome, questão, resposta, senha, confirmação, email });
             let errosValidaçãoEmail = validarCampoEmail(email);
             let errosConfirmaçãoSenha = validarConfirmaçãoSenha(senha, confirmação);
             setErros({ ...errosCamposObrigatórios, ...errosConfirmaçãoSenha, ...errosValidaçãoEmail });
@@ -96,7 +99,7 @@ export default function CadastrarUsuário() {
         if (camposVálidos) {
             let response;
             try {
-                response = await serviçoVerificarCpfExistente(dados.cpf);
+                response = await serviçoVerificarCnpjExistente(dados.cnpj);
                 if (response) confirmarOperação("salvar");
             } catch (error) {
                 if (error.response.data.erro)
@@ -139,11 +142,11 @@ export default function CadastrarUsuário() {
                 <Divider className={estilizarDivider(dados.cor_tema)} />
                 <h2 className={estilizarSubtítulo(dados.cor_tema)}>Dados Pessoais</h2>
                 <div className={estilizarDivCampo()}>
-                    <label className={estilizarLabel(dados.cor_tema)}>CPF*:</label>
-                    <InputMask name="cpf" autoClear className={estilizarInputMask(erros.cpf, dados.cor_tema)}
-                        mask={CPF_MÁSCARA} size={TAMANHOS.CPF} value={dados.cpf}
+                    <label className={estilizarLabel(dados.cor_tema)}>CNPJ*:</label>
+                    <InputMask name="cnpj" autoClear className={estilizarInputMask(erros.cnpj, dados.cor_tema)}
+                        mask={CNPJ_MÁSCARA} size={TAMANHOS.CNPJ} value={dados.cnpj}
                         onChange={alterarEstado} disabled={usuárioLogado?.perfil} />
-                    <MostrarMensagemErro mensagem={erros.cpf} />
+                    <MostrarMensagemErro mensagem={erros.cnpj} />
                 </div>
                 <div className={estilizarDivCampo()}>
                     <label className={estilizarLabel(dados.cor_tema)}>Nome Completo*:</label>
