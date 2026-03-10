@@ -29,8 +29,8 @@ export default function ModalConfirmaçãoUsuário() {
 
     function exibirPerfilFormatado() {
         switch (dados.perfil) {
-            case "locadora_motos": return "Locadora de Motos";
-            case "organizador_eventos_motos": return "Organizador de Eventos de Motos";
+            case "locadoraMotos": return "Locadora de Motos";
+            case "organizadorEventosMotos": return "Organizador de Eventos de Motos";
             default: return "";
         };
     }
@@ -45,7 +45,7 @@ export default function ModalConfirmaçãoUsuário() {
     };
 
     function finalizarCadastro() {
-        if (dados.perfil === "locadora_motos") {
+        if (dados.perfil === "locadoraMotos") {
             setUsuárioLogado({ ...dados, cadastrado: false });
             setMostrarModalConfirmação(false);
             navegar("../cadastrar-locadora-motos");

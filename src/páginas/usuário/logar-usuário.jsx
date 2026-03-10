@@ -54,7 +54,7 @@ export default function LogarUsuário() {
                     <label className={estilizarLabel()}>Usuário</label>
                     <InputMask name="nome_login" size={TAMANHOS.CNPJ}
                         className={estilizarInputMask(erros.nome_login)}
-                        autoClear mask={CNPJ_MÁSCARA} value={dados.nome_login} onChange={alterarEstado} />
+                        autoClear mask={CNPJ_MÁSCARA} value={dados.nome_login} onChange={alterarEstado} unmask/>
                     <MostrarMensagemErro mensagem={erros.nome_login} />
                 </div>
                 <div className={estilizarDivCampo()}>

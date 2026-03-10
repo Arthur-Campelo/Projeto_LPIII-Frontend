@@ -37,8 +37,8 @@ export default function CadastrarUsuário() {
     });
     const [erros, setErros] = useState({});
 
-    const opçõesPerfis = [{ label: "Locadora de Motos", value: "locadora_motos" },
-    { label: "Organizador de eventos", value: "organizador_eventos_motos" }];
+    const opçõesPerfis = [{ label: "Locadora de Motos", value: "locadoraMotos" },
+    { label: "Organizador de eventos", value: "organizadorEventosMotos" }];
 
     function alterarEstado(event) {
         const chave = event.target.name;
@@ -99,7 +99,7 @@ export default function CadastrarUsuário() {
         if (camposVálidos) {
             let response;
             try {
-                response = await serviçoVerificarCnpjExistente(limparMascara(dados.cnpj));
+                response = await serviçoVerificarCnpjExistente(dados.cnpj);
                 if (response) confirmarOperação("salvar");
             } catch (error) {
                 if (error.response.data.erro)
@@ -108,7 +108,7 @@ export default function CadastrarUsuário() {
         }
     }
     function confirmarOperação(operação) {
-        setConfirmaçãoUsuário({ ...dados, cnpj: limparMascara(dados.cnpj), operação });
+        setConfirmaçãoUsuário({ ...dados, operação });
         setMostrarModalConfirmação(true);
     };
     function ComandosConfirmação() {
@@ -126,11 +126,13 @@ export default function CadastrarUsuário() {
     return (
         <div className={estilizarFlex(alinharCentro())}>
             <Toast ref={referênciaToast} position="bottom-center" />
+
             <Dialog visible={mostrarModalConfirmação} className={estilizarDialog()}
                 header="Confirme seus dados" onHide={limparOcultar} closable={false}
                 footer={<div className={estilizarFooterDialog()}></div>}>
                 <ModalConfirmaçãoUsuário />
             </Dialog>
+            
             <Card title={títuloFormulário()} className={estilizarCard(dados.cor_tema)}>
                 <div className={estilizarDivCampo()}>
                     <label className={estilizarLabel(dados.cor_tema)}>Tipo de Perfil*:</label>
@@ -145,7 +147,7 @@ export default function CadastrarUsuário() {
                     <label className={estilizarLabel(dados.cor_tema)}>CNPJ*:</label>
                     <InputMask name="cnpj" autoClear className={estilizarInputMask(erros.cnpj, dados.cor_tema)}
                         mask={CNPJ_MÁSCARA} size={TAMANHOS.CNPJ} value={dados.cnpj}
-                        onChange={alterarEstado} disabled={usuárioLogado?.perfil} />
+                        onChange={alterarEstado} disabled={usuárioLogado?.perfil}  unmask/>
                     <MostrarMensagemErro mensagem={erros.cnpj} />
                 </div>
                 <div className={estilizarDivCampo()}>

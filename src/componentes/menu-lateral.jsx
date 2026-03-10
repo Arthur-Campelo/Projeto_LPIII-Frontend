@@ -39,9 +39,12 @@ export default function MenuLateral({ children }) {
     };
 
     function opçõesMenu() {
+        console.log("loook here", usuárioLogado.perfil);
         switch (usuárioLogado.perfil) {
-            case "locadora-motos": return opçõesLocadoraMotos;
-            case "organizador-eventos-motos": return opçõesOrganizadorEventosMotos;
+            case "locadoraMotos": {
+                console.log("entered here");
+                return opçõesLocadoraMotos;}
+            case "organizadorEventosMotos": return opçõesOrganizadorEventosMotos;
             default: return;
         }
     };
