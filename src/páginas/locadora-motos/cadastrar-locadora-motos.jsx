@@ -7,7 +7,7 @@ import { Dropdown } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
 import { Toast } from "primereact/toast";
 import ContextoUsuário from "../../contextos/contexto-usuário";
-import { serviçoCadastrarLocadoraMotos, serviçoBuscarLocadoraMotos } from "../../serviços/serviços-locadora-motos";
+import { serviçoCadastrarLocadoraMotos, serviçoBuscarLocadoraMotos, serviçoAtualizarLocadoraMotos } from "../../serviços/serviços-locadora-motos";
 import mostrarToast from "../../utilitários/mostrar-toast";
 import { MostrarMensagemErro, checarListaVazia, validarCamposObrigatórios } from "../../utilitários/validações";
 import {
@@ -40,8 +40,16 @@ export default function CadastrarLocadoraMotos() {
         return checarListaVazia(errosCamposObrigatórios);
     };
     function títuloFormulário() {
-        if (usuárioLogado?.cadastrado) return "Consultar Locadora de Motos";
+        if (usuárioLogado?.cadastrado) return "Alterar Locadora de Motos";
         else return "Cadastrar Locadora de Motos";
+    };
+    async function atualizarLocadoraMotos() {
+        if (validarCampos()) {
+            try {
+                const response = await serviçoAtualizarLocadoraMotos({ ...dados, cnpj: usuárioLogado.cnpj });
+                if (response) mostrarToast(referênciaToast, "Locadora de Motos atualizada com sucesso!", "sucesso");
+            } catch (error) { mostrarToast(referênciaToast, error.response.data.erro, "erro"); }
+        }
     };
     async function cadastrarLocadoraMotos() {
         if (validarCampos()) {
@@ -64,12 +72,14 @@ export default function CadastrarLocadoraMotos() {
         }
     };
     function labelBotãoSalvar() {
-        if (usuárioLogado?.cadastrado) return "Consultar";
+        if (usuárioLogado?.cadastrado) return "Alterar";
         else return "Cadastrar";
     };
     function açãoBotãoSalvar() {
-        if (!usuárioLogado?.cadastrado) cadastrarLocadoraMotos();
+        if (usuárioLogado?.cadastrado) atualizarLocadoraMotos();
+        else cadastrarLocadoraMotos();
     };
+
     function redirecionar() {
         if (cnpjExistente) {
             setUsuárioLogado(null);

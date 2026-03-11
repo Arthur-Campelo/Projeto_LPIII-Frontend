@@ -12,18 +12,18 @@ import { Toast } from "primereact/toast";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import ModalConfirmaçãoUsuário from "../../componentes/modais/modal-confirmação-usuário";
 import mostrarToast from "../../utilitários/mostrar-toast";
-import { serviçoVerificarCnpjExistente } from "../../serviços/serviços-usuário";//*checar/*/
-import { CNPJ_MÁSCARA, limparMascara } from "../../utilitários/máscaras";//*checar/*/
+import { serviçoVerificarCnpjExistente } from "../../serviços/serviços-usuário";
+import { CNPJ_MÁSCARA, limparMascara } from "../../utilitários/máscaras";
 import {
     MostrarMensagemErro, checarListaVazia, validarCampoEmail, validarCamposObrigatórios,
     validarConfirmaçãoSenha, validarConfirmaçãoSenhaOpcional, validarRecuperaçãoAcessoOpcional
 } from "../../utilitários/validações";
 import {
-    TAMANHOS, TEMA_PADRÃO, estilizarBotão, estilizarCard, estilizarDialog,
+    TAMANHOS, TEMA_PADRÃO, estilizarBotão, estilizarBotãoRemover, estilizarCard, estilizarDialog,
     estilizarDivBotõesAção, estilizarDivCampo, estilizarDivider, estilizarDropdown, estilizarFlex,
     estilizarFooterDialog, estilizarInputMask, estilizarInputText, estilizarLabel, estilizarLink,
-    estilizarPasswordInput, estilizarPasswordTextInputBorder, estilizarSubtítulo, opçõesCores
-} from "../../utilitários/estilos";/**checar tamanhos cnpj */
+    estilizarPasswordInput, estilizarPasswordTextInputBorder, estilizarSubtítulo, opçõesCores,
+} from "../../utilitários/estilos";
 
 export default function CadastrarUsuário() {
     const referênciaToast = useRef(null);
@@ -79,8 +79,8 @@ export default function CadastrarUsuário() {
         else return validarCamposAdministrar();
     };
     function títuloFormulário() {
-        if (!usuárioLogado?.perfil) return "Cadastrar Usuário";
-        else return "Consultar Usuário";
+        if (!usuárioLogado?.perfil) return "Alterar Usuário";
+        else return "Alterar Usuário";
     };
     function textoRetorno() {
         if (!usuárioLogado?.perfil) return "Retornar para login";
@@ -94,6 +94,11 @@ export default function CadastrarUsuário() {
         setConfirmaçãoUsuário(null);
         setMostrarModalConfirmação(false);
     };
+    function validarConfirmarAlteração() {
+        const camposVálidos = validarCampos();
+        if (camposVálidos) confirmarOperação("alterar");
+    };
+
     async function validarConfirmarCriação() {
         const camposVálidos = validarCampos();
         if (camposVálidos) {
@@ -118,6 +123,10 @@ export default function CadastrarUsuário() {
         } else {
             return (
                 <div className={estilizarDivBotõesAção()}>
+                    <Button className={estilizarBotão(dados.cor_tema)} label="Alterar"
+                        onClick={() => validarConfirmarAlteração()} />
+                    <Button className={estilizarBotãoRemover(dados.cor_tema)} label="Remover"
+                        onClick={() => confirmarOperação("remover")} />
                 </div>
             );
         }
@@ -132,7 +141,7 @@ export default function CadastrarUsuário() {
                 footer={<div className={estilizarFooterDialog()}></div>}>
                 <ModalConfirmaçãoUsuário />
             </Dialog>
-            
+
             <Card title={títuloFormulário()} className={estilizarCard(dados.cor_tema)}>
                 <div className={estilizarDivCampo()}>
                     <label className={estilizarLabel(dados.cor_tema)}>Tipo de Perfil*:</label>
@@ -147,7 +156,7 @@ export default function CadastrarUsuário() {
                     <label className={estilizarLabel(dados.cor_tema)}>CNPJ*:</label>
                     <InputMask name="cnpj" autoClear className={estilizarInputMask(erros.cnpj, dados.cor_tema)}
                         mask={CNPJ_MÁSCARA} size={TAMANHOS.CNPJ} value={dados.cnpj}
-                        onChange={alterarEstado} disabled={usuárioLogado?.perfil}  unmask/>
+                        onChange={alterarEstado} disabled={usuárioLogado?.perfil} unmask />
                     <MostrarMensagemErro mensagem={erros.cnpj} />
                 </div>
                 <div className={estilizarDivCampo()}>
