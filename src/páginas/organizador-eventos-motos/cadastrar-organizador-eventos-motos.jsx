@@ -9,8 +9,7 @@ import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import ContextoUsuário from "../../contextos/contexto-usuário";
 import { TELEFONE_MÁSCARA } from "../../utilitários/máscaras";
-import { serviçoCadastrarOrganizadorEventosMotos, serviçoAtualizarOrganizadorEventosMotos, serviçoBuscarOrganizadorEventosMotos }
- from "../../serviços/serviços-organizador-eventos-motos";
+import { serviçoCadastrarOrganizadorEventosMotos, serviçoAtualizarOrganizadorEventosMotos, serviçoBuscarOrganizadorEventosMotos } from "../../serviços/serviços-organizador-eventos-motos.js";
 import mostrarToast from "../../utilitários/mostrar-toast";
 import { MostrarMensagemErro, checarListaVazia, validarCamposObrigatórios } from "../../utilitários/validações";
 import {
@@ -36,17 +35,20 @@ export default function CadastrarOrganizadorEventosMotos() {
         const valor = event.target.value;
         setDados({ ...dados, [chave]: valor });
     };
+
     function validarCampos() {
         let errosCamposObrigatórios;
         errosCamposObrigatórios = validarCamposObrigatórios(dados);
         setErros(errosCamposObrigatórios);
         return checarListaVazia(errosCamposObrigatórios);
     };
+
     function títuloFormulário() {
         if (usuárioLogado?.cadastrado) return "Alterar Organizador de Eventos de Motos";
         else return "Cadastrar Organizador de Eventos de Motos";
     };
-    async function CadastrarOrganizadorEventosMotos() {
+
+    async function cadastrarOrganizadorEventosMotos() {
         if (validarCampos()) {
             try {
                 const response = await serviçoCadastrarOrganizadorEventosMotos({
@@ -65,6 +67,7 @@ export default function CadastrarOrganizadorEventosMotos() {
             }
         }
     };
+
     async function atualizarOrganizadorEventosMotos() {
         if (validarCampos()) {
             try {
@@ -73,14 +76,17 @@ export default function CadastrarOrganizadorEventosMotos() {
             } catch (error) { mostrarToast(referênciaToast, error.response.data.erro, "erro"); }
         }
     };
+
     function labelBotãoSalvar() {
         if (usuárioLogado?.cadastrado) return "Alterar";
         else return "Cadastrar";
     };
+
     function açãoBotãoSalvar() {
         if (usuárioLogado?.cadastrado) atualizarOrganizadorEventosMotos();
         else cadastrarOrganizadorEventosMotos();
     };
+
     function redirecionar() {
         if (cnpjExistente) {
             setUsuárioLogado(null);
@@ -90,6 +96,7 @@ export default function CadastrarOrganizadorEventosMotos() {
             navegar("/pagina-inicial");
         }
     };
+
     useEffect(() => {
         let desmontado = false;
         async function buscarDadosOrganizadoEventosMotos() {

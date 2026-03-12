@@ -31,7 +31,19 @@ export default function MenuLateral({ children }) {
             ]
         },
     ];
-    const opçõesOrganizadorEventosMotos = [];
+    const opçõesOrganizadorEventosMotos = [
+        { label: "Página Inicial", command: () => navegar("/pagina-inicial") },
+        {
+            label: "Menu", items: [
+                {
+                    label: "Cadastrar Usuário", command: () => navegar("/atualizar-usuario"),
+                    disabled: usuárioLogado.status !== "ativo"
+                },
+                { label: "Cadastrar Organizador", command: () => navegar("/cadastrar-organizador-eventos-motos") },
+                { label: "Sair do Sistema", command: () => sairSistema() },
+            ]
+        },
+    ];
 
     function sairSistema() {
         setUsuárioLogado({});
@@ -43,7 +55,8 @@ export default function MenuLateral({ children }) {
         switch (usuárioLogado.perfil) {
             case "locadoraMotos": {
                 console.log("entered here");
-                return opçõesLocadoraMotos;}
+                return opçõesLocadoraMotos;
+            }
             case "organizadorEventosMotos": return opçõesOrganizadorEventosMotos;
             default: return;
         }

@@ -51,3 +51,11 @@ export function MostrarMensagemErro({ mensagem }) {
     if (mensagem) return <small className={estilizarErro()}>{mensagem}</small>;
     else return null;
 };
+
+export function validarCnpj(cnpj) {
+    const TAMANHO_CNPJ = 14;
+
+    cnpj = cnpj.replace(/[^\d]/g, '');
+    if (cnpj.length === TAMANHO_CNPJ) return true;
+    return false;
+};

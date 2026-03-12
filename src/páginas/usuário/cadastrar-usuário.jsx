@@ -13,7 +13,7 @@ import ContextoUsuário from "../../contextos/contexto-usuário";
 import ModalConfirmaçãoUsuário from "../../componentes/modais/modal-confirmação-usuário";
 import mostrarToast from "../../utilitários/mostrar-toast";
 import { serviçoVerificarCnpjExistente } from "../../serviços/serviços-usuário";
-import { CNPJ_MÁSCARA, limparMascara } from "../../utilitários/máscaras";
+import { CNPJ_MÁSCARA } from "../../utilitários/máscaras";
 import {
     MostrarMensagemErro, checarListaVazia, validarCampoEmail, validarCamposObrigatórios,
     validarConfirmaçãoSenha, validarConfirmaçãoSenhaOpcional, validarRecuperaçãoAcessoOpcional

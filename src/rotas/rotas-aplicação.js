@@ -5,7 +5,7 @@ import CadastrarUsuário from "../páginas/usuário/cadastrar-usuário";
 import PáginaInicial from "../páginas/usuário/página-inicial";
 import CadastrarLocadoraMotos from "../páginas/locadora-motos/cadastrar-locadora-motos";
 import RecuperarAcesso from "../páginas/usuário/recuperar-acesso";
-import CadastrarAluno from "../páginas/aluno/cadastrar-aluno";
+import CadastrarOrganizadoEventosMotos from "../páginas/organizador-eventos-motos/cadastrar-organizador-eventos-motos";
 
 
 export default function RotasAplicação() {
@@ -19,7 +19,7 @@ export default function RotasAplicação() {
                     <Route element={<PáginaInicial />} path="pagina-inicial" />
                     <Route element={<CadastrarUsuário />} path="atualizar-usuario" />
                     <Route element={<CadastrarLocadoraMotos />} path="cadastrar-locadora-motos" />
-                    <Route element={<CadastrarOrganizadoEventosMotos/>} path="cadastrar-organizado-eventos-motos"/>
+                    <Route element={<CadastrarOrganizadoEventosMotos/>} path="cadastrar-organizador-eventos-motos"/>
                 </Route>
             </Routes>
         </BrowserRouter>

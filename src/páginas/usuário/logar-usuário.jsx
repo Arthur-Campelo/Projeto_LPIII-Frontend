@@ -47,9 +47,11 @@ export default function LogarUsuário() {
     };
     return (
         <div className={estilizarPáginaÚnica()}>
+
             <Toast ref={referênciaToast} position="bottom-center" />
             <h1 className={estilizarLogo()}>Locação de motos para eventos</h1>
             <Card title="Login" className={estilizarCard()}>
+
                 <div className={estilizarDivCampo()}>
                     <label className={estilizarLabel()}>Usuário</label>
                     <InputMask name="nome_login" size={TAMANHOS.CNPJ}
@@ -57,6 +59,7 @@ export default function LogarUsuário() {
                         autoClear mask={CNPJ_MÁSCARA} value={dados.nome_login} onChange={alterarEstado} unmask/>
                     <MostrarMensagemErro mensagem={erros.nome_login} />
                 </div>
+
                 <div className={estilizarDivCampo()}>
                     <label className={estilizarLabel()}>Senha</label>
                     <Password name="senha" inputClassName={estilizarPasswordTextInputBorder()}
@@ -64,11 +67,13 @@ export default function LogarUsuário() {
                         value={dados.senha} feedback={false} toggleMask onChange={alterarEstado} />
                     <MostrarMensagemErro mensagem={erros.senha} />
                 </div>
+
                 <div className={estilizarFlex("center")}>
                     <Button className={estilizarBotão()} label="Login" onClick={logarUsuário} />
-                    <Link className={estilizarLink()} to="/pagina-inicial">Recuperar Acesso de Usuário</Link>
+                    <Link className={estilizarLink()} to="/recuperar-acesso">Recuperar Acesso de Usuário</Link>
                     <Link className={estilizarLink()} to="/criar-usuario">Cadastrar Usuário</Link>
                 </div>
+
             </Card>
         </div>
     );

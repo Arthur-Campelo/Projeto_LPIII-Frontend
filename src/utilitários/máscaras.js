@@ -1,4 +1,4 @@
 const CNPJ_MÁSCARA = "99.999.999/9999-99";
-const limparMascara = (valor) => valor.replace(/\D/g, '');
+const TELEFONE_MÁSCARA = "(99) 99999-9999";
 
-export { CNPJ_MÁSCARA, limparMascara };
+export { CNPJ_MÁSCARA, TELEFONE_MÁSCARA };

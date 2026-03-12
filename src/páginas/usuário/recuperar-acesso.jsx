@@ -45,6 +45,7 @@ export default function RecuperarAcesso() {
     };
 
     async function buscarQuestãoSegurança(event) {
+        console.log(event.target.value);
         const cnpj = event.target.value;
         setDados({ ...dados, cnpj });
         clearTimeout(timer);
@@ -93,7 +94,7 @@ export default function RecuperarAcesso() {
                 <div className={estilizarDivCampo()}>
                     <label className={estilizarLabel()}>CNPJ*:</label>
                     <InputMask name="cnpj" className={estilizarInputMask(erros.cnpj)} size={TAMANHOS.CNPJ}
-                        mask={CNPJ_MÁSCARA} autoClear value={dados.cnpj} onChange={buscarQuestãoSegurança} />
+                        mask={CNPJ_MÁSCARA} autoClear value={dados.cnpj} onChange={buscarQuestãoSegurança} unmask/>
                 </div>
 
                 <div className={estilizarDivCampo()}>
