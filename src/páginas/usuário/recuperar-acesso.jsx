@@ -45,10 +45,10 @@ export default function RecuperarAcesso() {
     };
 
     async function buscarQuestãoSegurança(event) {
-        console.log(event.target.value);
         const cnpj = event.target.value;
         setDados({ ...dados, cnpj });
         clearTimeout(timer);
+
         const novoTimer = setTimeout(async () => {
             try {
                 if (validarCnpj(event.target.value)) {

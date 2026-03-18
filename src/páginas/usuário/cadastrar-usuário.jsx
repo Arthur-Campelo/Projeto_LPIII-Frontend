@@ -62,8 +62,6 @@ export default function CadastrarUsuário() {
     };
     function validarCamposCadastrar() {
         const { perfil, cnpj, nome, questão, resposta, senha, confirmação, email } = dados;
-        console.log("CadastrarUsuário.validarCamposCadastrar:dados.nome -- " + dados.nome);
-        console.log(JSON.parse(JSON.stringify(dados)));
         if (!usuárioLogado?.perfil) {
             let errosCamposObrigatórios = validarCamposObrigatórios
                 ({ perfil, cnpj, nome, questão, resposta, senha, confirmação, email });

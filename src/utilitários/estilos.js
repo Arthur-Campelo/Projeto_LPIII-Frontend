@@ -38,7 +38,7 @@ export function estilizarBotãoRetornar() {
 };
 
 export function estilizarCard(cor_tema) {
-    return `w-10 lg:w-auto overflow-auto pt-2 pb-3 m-4 text-${cor_tema}-700 border-2 shadow-8`;
+    return `w-10 lg:w-auto overflow-auto pt-2 pb-3 m-4 text-${cor_tema}-700 border-0 shadow-4`;
 };
 
 export function estilizarCardHeaderCentralizado() {
